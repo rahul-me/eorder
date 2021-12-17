@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>substr</shortname>
+	<info>Sample taglib for Substr operation</info>
+	<uri></uri>
+	<tag>
+	    <name>roleCheck</name>
+	    <tagclass>com.scm.struts.SmartRoleCheckTag</tagclass>
+	    <info>Role Checker</info>
+	    <attribute>
+	      <name>rolePermitted</name>
+	      <required>true</required>
+		</attribute>		
+    	<attribute>
+	      <name>componentName</name>
+	      <required>true</required>
+		</attribute>
+	</tag>
+</taglib> 

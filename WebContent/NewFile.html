@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+	<table
+		class="responsive table table-bordered table-striped table-hover disp"
+		id="POITable">
+		<thead>
+			<tr>
+				<th>Product Name</th>
+				<th>Available Quantity</th>
+				<th>Quantity</th>
+				<th>Rate</th>
+				<th>Amount</th>
+				<th style="width: 4%">Add/Remove</th>
+				<!-- <th class="isDisa">Void</th> -->
+			</tr>
+		</thead>
+		<tbody id="tbody">
+			<tr id="1">
+				<td style="width: 25%;">
+					<div class="span12 controls">
+						<div class="select2-container form-control select2me"
+							id="s2id_itemid_1">
+							<a href="javascript:void(0)"
+								class="select2-choice select2-default" tabindex="-1"> <span
+								class="select2-chosen" id="select2-chosen-1">Select</span><abbr
+								class="select2-search-choice-close"></abbr> <span
+								class="select2-arrow" role="presentation"><b
+									role="presentation"></b></span></a><label for="s2id_autogen1"
+								class="select2-offscreen"></label><input
+								class="select2-focusser select2-offscreen" type="text"
+								aria-haspopup="true" role="button"
+								aria-labelledby="select2-chosen-1" id="s2id_autogen1">
+							<div
+								class="select2-drop select2-display-none select2-with-searchbox">
+								<div class="select2-search">
+									<label for="s2id_autogen1_search" class="select2-offscreen"></label>
+									<input type="text" autocomplete="off" autocorrect="off"
+										autocapitalize="off" spellcheck="false" class="select2-input"
+										role="combobox" aria-expanded="true" aria-autocomplete="list"
+										aria-owns="select2-results-1" id="s2id_autogen1_search"
+										placeholder="">
+								</div>
+								<ul class="select2-results" role="listbox"
+									id="select2-results-1">
+								</ul>
+							</div>
+						</div>
+						<select name="itemid" id="itemid_1"
+							class="form-control select2me select2-offscreen" tabindex="-1"
+							title=""><option value=""></option>
+
+							<option value="51">MASSIVE OVEN</option>
+							<option value="52">HYBRID FIRE PANEL</option>
+							<option value="53">BURNER</option></select>
+					</div>
+				</td>
+				<td><input class="form-control text aqty " id="availableqty1"
+					name="availableQ" type="text" style="text-align: right;" value="0"
+					readonly="readonly"></td>
+				<td><input class="form-control text qty " id="qty1"
+					name="quantity" type="text" style="text-align: right;"> <span
+					class="label label-sm label-default"></span> <input
+					class="form-control text" type="hidden" readonly="readonly"
+					name="measurement" style="text-align: center;"> <input
+					type="hidden" name="measurementid"></td>
+				<td><input class="form-control text rate" id="rate1"
+					name="rate" type="text" style="text-align: right;" value="0"></td>
+				<td><input class="form-control text " id="amount1"
+					name="amount" type="text" readonly="readonly"
+					style="text-align: right;" value="0"></td>
+				<td><a class="btn btn-sm green " onclick="insertRow(this)"><i
+						class="fa fa-plus"></i></a> <a href="#" class="btn btn-sm red "
+					id="cancel-button" onclick="deleteRow(this)"><i
+						class="fa fa-minus"></i></a></td>
+				<td style="display: none;"><input type="hidden"
+					id="orderDetailId" name="orderDetailId"></td>
+			</tr>
+
+		</tbody>
+	</table>
+
+
+
+</body>
+</html>

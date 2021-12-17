@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+
+<!-- ====================================================Define Form Bean=================================================== -->	
+	
+	<form-beans>
+		<form-bean name="UserActionForm" type="com.bms.neetai.users.UserActionForm" />
+		<form-bean name="DailyReportsBean" type="com.bms.mdm.reports.ReportInputBean"/>
+		<form-bean name="reportActionForm" type="com.bms.mdm.report.ReportActionForm"/>
+		<form-bean name="filterActionForm" type="com.bms.mdm.filter.FilterActionForm" />
+		<form-bean name="orderMasterActionForm" type="com.bms.order.ordermaster.OrderMasterActionForm" />
+		<form-bean name="MeasurementActionForm" type="com.bms.mdm.measurement.MeasurementActionForm" />
+        <form-bean name="MeasurementConversionBean" type="com.bms.mdm.measurement.MeasurementConversionBean" />
+        <form-bean name="ItemCategoryActionForm" type="com.bms.mdm.itemcategories.ItemCategoryActionForm" /> 
+        <form-bean name="ItemCategoryUpdateActionForm" type="com.bms.mdm.itemcategories.ItemCategoryActionForm" />
+ 		<form-bean name="ItemActionForm" type="com.bms.mdm.item.ItemActionForm" />
+        <form-bean name="accessControlBean" type="com.bms.mdm.settings.AccessControlBean" />
+        <form-bean name="userRoleActionForm" type="com.bms.neetai.userroles.UserRoleActionForm" />
+        <form-bean name="CompanyActionForm" type="com.bms.neetai.company.CompanyActionForm"/>
+        <form-bean name="OrderStageActionForm" type="com.bms.mdm.orderstage.OrderStageActionForm"/>
+        <form-bean name="ItemCustomerPriceMappingActionForm" type="com.bms.mapping.itemcustomerpricemapping.ItemCustomerPriceMappingActionForm" />
+        <form-bean name="ConfigureActionMaster" type="com.bms.config.ConfigActionForm"></form-bean>
+        
+        <!-- 8-9-2015 16:21PM -->                                     
+        <form-bean name="PackagesAction" type="com.bms.mdm.packages.PackagesActionForm"></form-bean>
+        
+        <!-- 24-2-2016 @Disilva -->
+        <form-bean name="SaleDetailActionBean" type="com.bms.sale.saledetail.SaleDetailActionForm"></form-bean>
+        <form-bean name="AccountActionForm" type="com.bms.retaildetail.RetailDetailActionForm"></form-bean>
+        
+     </form-beans>
+<!-- =====================================================Servlet Action Maping============================================= -->	
+<action-mappings>
+		
+		<action path="">
+		</action>
+		
+		<action name="UserActionForm" input="/login.jsp" path="/view/Login"
+			scope="request" validate="false" type="com.bms.mdm.users.LoginAction">
+			<forward name="success"  redirect="true" path="/view/main/index.jsp" />
+			<forward name="success1" redirect="true" path="/view/main/index1.jsp"/>
+			<forward name="success2" redirect="true" path="/view/main/index2.jsp"/>
+			<forward name="error" redirect="true" path="/login.jsp" />
+		</action>
+		
+		<action name="UserActionForm" input="/header.jsp" path="/Logout"
+			scope="request" validate="false" type="com.bms.mdm.users.Logout">
+			<forward name="success" path="/login.jsp" />
+			<forward name="error" path="/login.jsp" />
+		</action>
+
+		<action name="filterActionForm" input="/dashboard.jsp" path="/view/po/filterViewAction"
+			scope="request" type="com.bms.mdm.filter.FilterAction" validate="true">
+			<forward name="orderList" path="/view/order/orderList.jsp" />
+			<forward name="orderManagementList" path="/view/order/orderManagementList.jsp" />
+			<forward name="currentStockStatusList" path="/view/stockadjustment/currentStockStatusList.jsp" />
+			<forward name="sitesCreatedList" path="/view/master/sitesCreatedList.jsp"></forward>
+			<forward name="itemCategoryList" path="/view/master/itemCategoryList.jsp"></forward>
+			<forward name="listMeasurement" path="/view/master/measurementList.jsp"></forward>
+			<forward name="customerEntryList" path="/view/master/customerList.jsp"></forward>
+			<forward name="ItemListForward" path="/view/master/itemList.jsp"></forward>			
+			<forward name="listUsers" path="/view/master/userList.jsp"></forward>
+			<forward name="listUserRole" path="/view/master/userRoleList.jsp"></forward>
+			<forward name="fillRate" path="/view/report/fillRateReport.jsp"></forward>
+			<forward name="fillRateByItem" path="/view/report/fillRateByItem.jsp"></forward>
+			<forward name="report" path="/view/report/report.jsp"></forward>
+			<forward name="error" path="/view/mainbmsview/dashboard.jsp" />
+			<forward name="companyList" path="/view/master/companyList.jsp"/>
+			<forward name="OrderStageList" path="/view/order/orderStageList.jsp"/>
+			<forward name="ItemPriceList" path="/view/settings/itemPriceSettingList.jsp"/>
+			<forward name="listCustomer" path="/view/master/customerList.jsp"/>
+		</action>
+		
+		<action
+			path="/view/reports/DownLoadPDFReport" type="com.bms.mdm.reports.PDFReportDownloadAction"
+			name="DailyReportsBean" input="/report/pdfReportsDownload.jsp" scope="request">							   
+			<forward name="success" path="/report/pdfReportsDownload.jsp"/>
+			<forward name="error" path="/report/pdfReportsDownload.jsp" />		
+		</action>
+		
+		<action name="reportActionForm" input="/dashboard.jsp" path="/view/report/ReportAction"
+			scope="request" validate="true" type="com.bms.mdm.report.ReportAction">
+			<forward name="error" path="/mainbmsview/dashboard.jsp" />
+			<forward name="BalanceStockQuantity" path="/view/report/balanceStockQuantityReport.jsp" />
+			<forward name="ItemQuantityTransfer" path="/view/report/itemQuantityTransferReport.jsp" />
+			<forward name="PurchaseItemQuantity" path="/view/report/purchaseItemQuantityReport.jsp" />
+		</action>
+		
+		<!-- <action name="purchaseOrderMasterActionForm" input="/dashboard.jsp" path="/po/PurchaseOrderMasterViewAction"
+			scope="request" validate="true" type="com.bms.po.purchaseordermaster.PurchaseOrderMasterViewAction">
+			<forward name="error" path="/mainbmsview/dashboard.jsp" />
+			<forward name="successList" path="/po/filterViewAction.do" />
+		</action> -->
+	
+		
+		<action name="orderMasterActionForm" input="/dashboard.jsp" path="/view/order/orderMasterViewAction"
+			scope="request" validate="false" type="com.bms.order.ordermaster.OrderMasterViewAction">
+			<forward name="success"  path="/view/order/order.jsp"/>
+			<forward name="error" path="/view/mainbmsview/dashboard.jsp" />
+		</action>
+		<action name="orderMasterActionForm" input="/order.jsp" path="/view/order/orderMasterAction"
+			scope="request" validate="false" type="com.bms.order.ordermaster.OrderMasterAction">
+			<forward name="success" redirect="true" path="/view/po/filterViewAction.do?orderList=true" />
+			<forward name="success2"  path="/view/po/filterViewAction.do?orderList=true" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		<action name="orderMasterActionForm" input="/order.jsp" path="/view/order/templateExport"
+			scope="request" validate="false" type="com.bms.order.ordermaster.OrderExport">
+			<forward name="success" path="/view/order/order.jsp" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="ItemCategoryActionForm" input="/dashboard.jsp" path="/view/itemcategories/ItemCategoryViewAction"
+			scope="request" validate="true" type="com.bms.mdm.itemcategories.ItemCategoryViewAction">
+			<forward name="success" path="/view/master/itemCategoryEntry.jsp" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="ItemCategoryActionForm" input="/itemCategoryEntry.jsp" path="/view/itemcategories/ItemCategoryMasterAction"
+			scope="request" validate="true" type="com.bms.mdm.itemcategories.ItemCategoryMasterAction">
+			<forward name="success" redirect="true" path="../../view/po/filterViewAction.do?itemCategoryList=true" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="MeasurementActionForm" input="/measurement.jsp" path="/view/measurement/MeasurementViewAction"
+			scope="request" validate="false" type="com.bms.mdm.measurement.MeasurementViewAction">
+			<forward name="success" path="/view/master/measurement.jsp" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		<action name="MeasurementActionForm" input="/measurement.jsp" path="/view/measurement/MeasurementActionForm"
+			scope="request" validate="false" type="com.bms.mdm.measurement.MeasurementMasterAction">
+			<forward name="success" redirect="true" path="../../view/po/filterViewAction.do?listMeasurement=true" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		<!-- <action name="MeasurementConversionBean" input="/measurement.jsp" path="/view/measurement/MeasurementConversionAction"
+			scope="request" validate="false" type="com.bms.mdm.measurement.MeasurementConversionAction">
+			<forward name="success" redirect="true" path="/view/measurement/MeasurementViewAction.do" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		 -->
+		<action name="ItemActionForm" input="/dashboard.jsp" path="/view/item/ItemViewAction"
+			scope="request" validate="true" type="com.bms.mdm.item.ItemViewAction">
+			<forward name="success" path="/view/master/itemEntry.jsp" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="ItemActionForm" input="/itemEntry.jsp" path="/view/item/ItemMasterAction"
+			scope="request" validate="true" type="com.bms.mdm.item.ItemMasterAction">
+			<forward name="success"  redirect="true" path="../../view/po/filterViewAction.do?ItemListForward=true" />
+			<forward name="error" path="/view/index.html" />	
+		</action>
+		 
+		<!-- <action name="CustomerActionForm" input="/dashboard.jsp" path="/view/customer/CustomerMaterAction"
+			scope="request" validate="true" type="com.bms.mdm.customer.CustomerMasterAction">
+			<forward name="success" path="/view/po/filterViewAction.do?customerEntryList=true" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="CustomerActionForm" input="/itemEntry.jsp" path="/view/customer/CustomerViewAction"
+			scope="request" validate="true" type="com.bms.mdm.customer.CustomerViewAction">
+			<forward name="success" path="/view/master/customerEntry.jsp" />
+			<forward name="error" path="/view/index.html" />
+		</action> -->
+		
+		<action name="ItemActionForm" input="/itemPriceSetting.jsp" path="/view/item/templateExport"
+			scope="request" validate="false" type="com.bms.mdm.item.ItemExport">
+			<forward name="success"  redirect="true" path="/view/item/ItemViewAction.do" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="UserActionForm" input="/dashboard.jsp" path="/view/users/UsersMasterAction"
+			scope="request" validate="true" type="com.bms.neetai.users.UserMasterAction">
+			<forward name="success" redirect="true" path="/view/po/filterViewAction.do?listUsers=true" />
+			<forward name="success1" redirect="true" path="/view/po/filterViewAction.do?listCustomer=true" />			
+			<forward name="error" path="/view/index.html" />
+		</action>
+		<action name="UserActionForm" input="/usersEntry.jsp" path="/view/users/UsersViewAction"
+			scope="request" validate="true" type="com.bms.neetai.users.UserViewAction">
+			<forward name="success" path="/view/master/usersEntry.jsp" />
+			<forward name="success1" path="/view/master/customerEntry.jsp"/>
+			<forward name="error" path="/index.html" />
+		</action>
+		
+		<!-- access control-->
+		<action name="accessControlBean" input="/settigns/accessContol.jsp" path="/view/settings/AccessControl"
+			scope="request" type="com.bms.mdm.settings.AccessControlAction" >
+			<forward name="success" redirect="true" path="/view/settings/AccessControlView.do" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="accessControlBean" input="/settigns/accessContol.jsp" path="/view/settings/AccessControlView"
+			scope="request" type="com.bms.mdm.settings.AccessControlViewAction" >
+			<forward name="success" path="/view/settings/accessControl.jsp" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="userRoleActionForm" input="/dashboard.jsp" path="/view/users/UsersRoleViewAction"
+			scope="request" type="com.bms.neetai.userroles.UserRoleViewAction" > 
+			<forward name="success" path="/view/master/userRoleEntry.jsp" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		<action name="userRoleActionForm" input="/userRoleEntry.jsp" path="/view/users/UserRoleAction"
+			scope="request"  type="com.bms.neetai.userroles.UserRoleMasterAction">
+			<forward name="success" redirect="true" path="../../view/po/filterViewAction.do?listUserRole=true" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action name="CompanyActionForm" input="/dashboard.jsp" path="/view/master/companyViewAction"
+		        scope="request" validate="true" type="com.bms.neetai.company.CompanyViewAction">
+		        <forward name="success"  path="/view/master/companyEntry.jsp"/>
+		        <forward name="error" redirect="true" path="/view/index.html"/>
+		</action>
+		<action name="CompanyActionForm" input="/companyEntry.jsp" path="/view/company/CompanyMasterAction"
+		        scope="request" type="com.bms.neetai.company.CompanyMasterAction">
+		        <forward name="success"  redirect="true" path="../../view/po/filterViewAction.do?companyList=true"/>
+		        <forward name="error" redirect="true" path="/view/index.html"/>
+		</action>
+		<action name="OrderStageActionForm" path="/view/orderstage/OrderStageViewAction"
+				scope="request"  validate="true" type="com.bms.mdm.orderstage.OrderStageViewAction">
+				<forward name="success" path="/view/order/orderStage.jsp"/>
+				<forward name="error" redirect="true" path="/view/index.html"/>				
+		</action> 
+		<action name="OrderStageActionForm" path="/view/orderstage/OrderStageMasterAction"
+				scope="request" type="com.bms.mdm.orderstage.OrderStageMasterAction">
+				<forward name="success"  redirect="true" path="../../view/po/filterViewAction.do?OrderStageList=true"/>
+				<forward name="error" redirect="true" path="/view/index.html"/>				
+		</action>
+		
+		<action name="ItemCustomerPriceMappingActionForm" input="/dashboard.jsp" path="/view/itemcustomermapping/ItemCustomerMapViewAction"
+			scope="request" validate="true" type="com.bms.mapping.itemcustomerpricemapping.ItemCustomerPriceMappingViewAction">
+			<forward name="success" path="/view/settings/itemPriceSettingList.jsp" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		<action name="ItemCustomerPriceMappingActionForm" input="/itemSupplierMapping.jsp" path="/view/itemcustomermapping/ItemCustomerMapMasterAction"
+			scope="request" validate="true" type="com.bms.mapping.itemcustomerpricemapping.ItemCustomerPriceMappingMasterAction">
+			<forward name="success" redirect="true" path="/view/itemcustomermapping/ItemCustomerMapViewAction.do" />
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		
+		<!-- Newly added action tags  -->		 		
+		<action path="/view/master/CreatePackagesAction" type="org.apache.struts.actions.ForwardAction" parameter="/view/master/packages.jsp"/>
+		<action path="/view/master/ListPackagesAction" type="org.apache.struts.actions.ForwardAction" parameter="/view/master/packagesList.jsp"/>
+						
+		<action name="PackagesAction" path="/view/master/PackagesMasterAction" 
+				scope="request" type="com.bms.mdm.packages.PackagesMasterAction">
+				<forward name="success" redirect="true" path="/view/master/packages.jsp"></forward>
+		</action>  						
+		<action name="PackagesAction" path="/view/master/ViewPackagesAction"
+				scope="request" type="com.bms.mdm.packages.PackagesViewAction">
+			<forward name="open_pkglist" path="/view/master/packagesList.jsp"></forward>
+			<forward name="open_pkgentry" path="/view/master/packages.jsp"></forward>
+		</action>
+		<action path="/view/order/exportOrderList" type="com.bms.export.ExportData">
+			<forward name="success" path="/view/order/orderList.jsp"></forward>	
+		</action>
+		
+		<!-- 23-2-2016 - @Disilva -->
+		<action path="/view/sale/saleViewAction" name="SaleDetailActionBean" type="com.bms.sale.SaleViewAction">
+			<forward name="success" path="/view/sale/sale.jsp"></forward>
+		</action>
+				
+		<action path="/view/sale/saleMasterAction" name="SaleDetailActionBean" type="com.bms.sale.SaleMasterAction">
+			<forward name="success" redirect="true" path="/view/sale/saleViewAction.do"></forward>
+		</action>
+		<!-- Close 23-2-2016 - @Disilva -->
+		
+		<!--  3-3-2016 - @Disilva -->
+		<action path="/view/company/companyDetailsViewAction" name="CompanyActionForm" type="com.bms.companydetail.CompanyDetailViewAction">
+			<forward name="success" path="/view/company/companyDetails.jsp"></forward>
+		</action>
+		
+		<!-- Close 3-3-2016 - @Disilva -->
+		
+		<action path="/view/company/companyDetailAction" name="CompanyActionForm" parameter="submit" type = "com.bms.companydetail.CompanyDetailMasterAction">
+			<forward name="success" path="/view/company/companyDetailsViewAction.do"></forward>
+		</action>
+		
+		<action path="/order/companyInvoice/invoicePdf" type="com.bms.pdf.GetCompanyInvoice">
+			<forward name="success" path="/view/po/filterViewAction.do?orderManagementList=true"></forward>
+		</action>
+		
+		<action path="/view/retail/accountViewAction" name="AccountActionForm" type="com.bms.retaildetail.RetailDetailViewAction">
+			<forward name="success" path="/view/retail/account/retailaccount.jsp"></forward>
+		</action>				
+		
+		<action path="/view/retail/account/accountAction" name="AccountActionForm" type="com.bms.retaildetail.RetailDetailAction">
+			<forward name="success" redirect="true" path="/view/retail/accountViewAction.do"></forward>
+			<forward name="error" path="/view/index.html" />
+		</action>
+		
+		<action path="/view/report/orderReportView" type="com.bms.report.OrderReportViewAction" >
+			<forward name="success" path="/view/report/orderReport.jsp"></forward>
+		</action>		
+		
+		<action path="/view/sale/salelistView" type="org.apache.struts.actions.ForwardAction" parameter="/view/sale/salelist.jsp">			
+		</action>
+			
+</action-mappings>
+<!--======================================Validator Configuration============================================================-->
+<message-resources parameter="applicationResource">
+	</message-resources>
+
+<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames"
+        value="/WEB-INF/validator-rules.xml,
+                /WEB-INF/validation.xml" />
+</plug-in>
+<!-- ===============================================validator configration completed======================================== -->
+</struts-config>
